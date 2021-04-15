@@ -3,11 +3,11 @@ package com.example.forsparkers.controller;
 import com.example.forsparkers.model.dto.PartnerDTO;
 import com.example.forsparkers.model.entity.Partner;
 import com.example.forsparkers.service.PartnerService;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.print.Pageable;
 import java.util.List;
 
 @RestController

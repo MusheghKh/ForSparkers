@@ -1,8 +1,5 @@
 package com.example.forsparkers.model.dto;
 
-import com.example.forsparkers.model.entity.Partner;
-
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -10,10 +7,8 @@ public class PartnerDTO {
 
     private Long id;
     @NotBlank
-    @Min(2)
     private String name;
     @NotBlank
-    @Min(2)
     private String reference;
     @NotNull
     private String locale;
