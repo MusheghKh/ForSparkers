@@ -2,12 +2,11 @@ package com.example.forsparkers.error;
 
 import com.example.forsparkers.error.exception.BadRequestException;
 import com.example.forsparkers.error.exception.NotFoundException;
-import com.example.forsparkers.error.model.Error;
+import com.example.forsparkers.error.model.GeneralError;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 import javax.validation.ValidationException;
 
@@ -15,26 +14,26 @@ import javax.validation.ValidationException;
 public class CustomizedResponseEntityExceptionHandler {
 
     @ExceptionHandler(BadRequestException.class)
-    public ResponseEntity<Error> handleBadRequest(BadRequestException exception) {
-        Error error = new Error(HttpStatus.BAD_REQUEST.value(), exception.getMessage());
-        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    public ResponseEntity<GeneralError> handleBadRequest(BadRequestException exception) {
+        GeneralError error = new GeneralError(exception.getCode(), exception.getMessage());
+        return new ResponseEntity<>(error, exception.getHttpStatus());
     }
 
     @ExceptionHandler(NotFoundException.class)
-    public ResponseEntity<Error> handleNotFound(NotFoundException exception) {
-        Error error = new Error(HttpStatus.NOT_FOUND.value(), exception.getMessage());
-        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    public ResponseEntity<GeneralError> handleNotFound(NotFoundException exception) {
+        GeneralError error = new GeneralError(exception.getCode(), exception.getMessage());
+        return new ResponseEntity<>(error, exception.getHttpStatus());
     }
 
     @ExceptionHandler(ValidationException.class)
-    public ResponseEntity<Error> handleValidationException(Exception exception) {
-        Error error = new Error(HttpStatus.BAD_REQUEST.value(), exception.getMessage());
+    public ResponseEntity<GeneralError> handleValidationException(Exception exception) {
+        GeneralError error = new GeneralError(HttpStatus.BAD_REQUEST.value(), exception.getMessage());
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<Error> handleAllExceptions(Exception exception) {
-        Error error = new Error(HttpStatus.INTERNAL_SERVER_ERROR.value(), exception.getMessage());
+    public ResponseEntity<GeneralError> handleAllExceptions(Exception exception) {
+        GeneralError error = new GeneralError(HttpStatus.INTERNAL_SERVER_ERROR.value(), exception.getMessage());
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

@@ -1,10 +1,10 @@
 package com.example.forsparkers.error.model;
 
-public class Error {
+public class GeneralError {
     private int code;
     private String message;
 
-    public Error(int code, String message) {
+    public GeneralError(int code, String message) {
         this.code = code;
         this.message = message;
     }
