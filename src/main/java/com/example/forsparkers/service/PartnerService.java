@@ -1,23 +1,23 @@
 package com.example.forsparkers.service;
 
-import com.example.forsparkers.error.BadRequestException;
-import com.example.forsparkers.error.NotFoundException;
+import com.example.forsparkers.error.exception.BadRequestException;
+import com.example.forsparkers.error.exception.NotFoundException;
 import com.example.forsparkers.model.dto.PartnerDTO;
 import com.example.forsparkers.model.entity.Partner;
 import com.example.forsparkers.repository.PartnerRepository;
 import com.example.forsparkers.util.PartnerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 import java.text.ParseException;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Validated
@@ -30,8 +30,13 @@ public class PartnerService {
         this.partnerRepository = partnerRepository;
     }
 
-    public List<Partner> getPartners(Pageable pageable) {
-        return partnerRepository.findAll(pageable).getContent();
+    public List<PartnerDTO> getPartners(int from, int size) {
+        Pageable pageable = PageRequest.of(from, size);
+
+        return partnerRepository.findBy(pageable).getContent()
+                .stream()
+                .map(PartnerFactory::from)
+                .collect(Collectors.toList());
     }
 
     public PartnerDTO getPartner(Long partnerId) {

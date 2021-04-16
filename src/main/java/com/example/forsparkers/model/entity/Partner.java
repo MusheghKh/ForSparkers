@@ -11,17 +11,13 @@ public class Partner {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column
-    @NotNull
+    @Column(nullable = false)
     private String companyName;
-    @Column
-    @NotNull
+    @Column(nullable = false)
     private String ref;
-    @Column
-    @NotNull
+    @Column(nullable = false)
     private Locale locale;
-    @Column
-    @NotNull
+    @Column(nullable = false)
     private Date expires;
 
     public Partner() {

@@ -1,4 +1,4 @@
-package com.example.forsparkers.error;
+package com.example.forsparkers.error.model;
 
 public class Error {
     private int code;

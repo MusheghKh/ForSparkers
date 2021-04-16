@@ -1,18 +1,23 @@
 package com.example.forsparkers.model.dto;
 
+import com.example.forsparkers.validation.ValidLocale;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 public class PartnerDTO {
 
     private Long id;
-    @NotBlank
+    @NotBlank(message = "name must not be black")
+    @Size(min = 2, max = 255, message = "name size must be between 2 and 255")
     private String name;
-    @NotBlank
+    @NotBlank(message = "reference must not be black")
+    @Size(min = 2, max = 255, message = "reference size must be between 2 and 255")
     private String reference;
-    @NotNull
+    @ValidLocale
     private String locale;
-    @NotNull
+    @NotNull(message = "expirationTime must not be null")
     private String expirationTime;
 
     public PartnerDTO(Long id, String name, String reference, String locale, String expirationTime) {

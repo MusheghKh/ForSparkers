@@ -1,9 +1,7 @@
 package com.example.forsparkers.controller;
 
 import com.example.forsparkers.model.dto.PartnerDTO;
-import com.example.forsparkers.model.entity.Partner;
 import com.example.forsparkers.service.PartnerService;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,9 +19,11 @@ public class PartnerController {
     }
 
     @GetMapping
-    public List<Partner> getAllPartners(Pageable pageable) {
-        // TODO pagination
-        return partnerService.getPartners(pageable);
+    public List<PartnerDTO> getAllPartners(
+            @RequestParam(value = "from", required = false, defaultValue = "0") int from,
+            @RequestParam(value = "size", required = false, defaultValue = "10") int size
+    ) {
+        return partnerService.getPartners(from, size);
     }
 
     @GetMapping("/{id}")
