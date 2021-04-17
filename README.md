@@ -22,16 +22,16 @@ To run app tests type in terminal
 Health check endpoint(Get method)
 > localhost:8080/actuator/health
 
-Get first 10 partners enpoint(Get method)
+Get first 10 partners endpoint(Get method)
 > localhost:8080/api/partner
 
-You can also use query parameteters like this, for desired partners count and page(Get method)
+You can also use query parameters like this, for desired partners count and page(Get method)
 > localhost:8080/api/partner?from=1&size=7
 
-Get partner by id(Get method)
+Get partner by id endpoint(Get method)
 > localhost:8080/api/partner/{id}
 
-Add new partner(Post method)
+Add new partner endpoint(Post method)
 > localhost:8080/api/partner
 
 With Request body like this
@@ -42,7 +42,7 @@ With Request body like this
 >    "expirationTime"    : "2017-10-03T12:18:46+00:00"
 >}
 
-Put partner(Put method)
+Put partner endpoint(Put method)
 > localhost:8080/api/partner/{id}
 
 With Request body like this
@@ -53,5 +53,5 @@ With Request body like this
 >    "expirationTime"    : "2017-10-03T12:18:46+00:00"
 >}
 
-Delete Partner(Delete method)
+Delete Partner endpoint(Delete method)
 > localhost:8080/api/partner/{id}
