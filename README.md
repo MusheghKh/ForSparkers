@@ -4,7 +4,7 @@ ForSparkers is small Rest Api developed with [Spring Boot](http://projects.sprin
 
 ## Run the app
 
-You must hove preinstalled [JDK](https://www.oracle.com/java/technologies/javase-downloads.html) in your computer.
+You must have preinstalled [JDK](https://www.oracle.com/java/technologies/javase-downloads.html) in your computer.
 
 To run the app you must go to project folder and type in terminal
 ```shell
