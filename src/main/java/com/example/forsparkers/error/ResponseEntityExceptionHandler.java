@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
@@ -39,6 +40,13 @@ public class ResponseEntityExceptionHandler {
             strBuilder.append(s.getMessageTemplate());
         }
         GeneralError error = new GeneralError(HttpStatus.BAD_REQUEST.value(), strBuilder.toString());
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<GeneralError> handleMethodArgumentException(MethodArgumentTypeMismatchException exception) {
+        String detailsMessage = "The type of '" + exception.getName() + "' must be " + exception.getRequiredType().getName();
+        GeneralError error = new GeneralError(HttpStatus.BAD_REQUEST.value(), detailsMessage);
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 

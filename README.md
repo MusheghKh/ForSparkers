@@ -182,7 +182,7 @@ response example
 #### Delete Partner endpoint(Delete method)
 > localhost:8080/api/partner/{id}
 
-response has not body
+response does not have body
 
 #### Error body example
 ```json

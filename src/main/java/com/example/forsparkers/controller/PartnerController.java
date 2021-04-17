@@ -4,10 +4,13 @@ import com.example.forsparkers.model.dto.PartnerDTO;
 import com.example.forsparkers.service.PartnerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.Min;
 import java.util.List;
 
+@Validated
 @RestController
 @RequestMapping("/api/partner")
 public class PartnerController {
@@ -20,8 +23,10 @@ public class PartnerController {
 
     @GetMapping
     public List<PartnerDTO> getAllPartners(
-            @RequestParam(value = "from", required = false, defaultValue = "0") int from,
-            @RequestParam(value = "size", required = false, defaultValue = "10") int size
+            @RequestParam(value = "from", required = false, defaultValue = "0")
+            @Min(value = 0, message = "'from' must be greater or equal to 0") int from,
+            @RequestParam(value = "size", required = false, defaultValue = "10")
+            @Min(value = 1, message = "'size' must be greater or equal to 1") int size
     ) {
         return partnerService.getPartners(from, size);
     }
