@@ -1,6 +1,6 @@
 # ForSparkers
 
-ForSparkers is small Rest Api app developed with [Spring Boot](http://projects.spring.io/spring-boot/).
+ForSparkers is small Rest Api developed with [Spring Boot](http://projects.spring.io/spring-boot/).
 
 ## Run the app
 
