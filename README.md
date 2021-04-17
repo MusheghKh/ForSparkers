@@ -183,3 +183,11 @@ response example
 > localhost:8080/api/partner/{id}
 
 response does not have body
+
+#### Error body example
+```json
+{
+    "code": 500,
+    "message": "Something went wrong"
+}
+```
