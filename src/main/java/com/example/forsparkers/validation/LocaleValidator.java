@@ -20,7 +20,8 @@ public class LocaleValidator implements ConstraintValidator<ValidLocale, String>
             return false;
         }
         try {
-            return locale.getISO3Language() != null && locale.getISO3Country() != null;
+            return StringUtils.hasLength(locale.getISO3Language())
+                    && StringUtils.hasLength(locale.getISO3Country());
         } catch (MissingResourceException e) {
             return false;
         }

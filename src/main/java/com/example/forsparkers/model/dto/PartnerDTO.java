@@ -20,6 +20,10 @@ public class PartnerDTO {
     @NotNull(message = "expirationTime must not be null")
     private String expirationTime;
 
+    public PartnerDTO() {
+
+    }
+
     public PartnerDTO(Long id, String name, String reference, String locale, String expirationTime) {
         this.id = id;
         this.name = name;
