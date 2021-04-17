@@ -58,7 +58,7 @@ public class PartnerControllerTest {
     }
 
     @Test
-    public void textGetPartnersPage() throws Exception {
+    public void testGetPartnersPage() throws Exception {
         MvcResult mvcResult = mockMvc.perform(get(getBaseUrl() + "?from=0&size=5"))
                 .andExpect(status().isOk())
                 .andReturn();
@@ -73,18 +73,15 @@ public class PartnerControllerTest {
     }
 
     @Test
-    public void textGetPartnersSecondPage() throws Exception {
-        MvcResult mvcResult = mockMvc.perform(get(getBaseUrl() + "?from=1&size=10"))
-                .andExpect(status().isOk())
-                .andReturn();
+    public void testGetPartnersQueryString() throws Exception {
+        mockMvc.perform(get(getBaseUrl() + "?from=asd&size=asd"))
+                .andExpect(status().isBadRequest());
+    }
 
-        List<PartnerDTO> response = OBJECT_MAPPER.readValue(
-                mvcResult.getResponse().getContentAsString(),
-                new TypeReference<>() {
-                }
-        );
-
-        assertThat(response.size() == 5).isTrue();
+    @Test
+    public void testGetPartnersInvalidQuery() throws Exception {
+        mockMvc.perform(get(getBaseUrl() + "?from=-1&size=0"))
+                .andExpect(status().isBadRequest());
     }
 
     @Test
