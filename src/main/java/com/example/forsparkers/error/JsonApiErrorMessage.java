@@ -24,7 +24,10 @@ public class JsonApiErrorMessage extends DefaultErrorAttributes {
 
         String message = (String) errorAttributes.get("message");
         if (!StringUtils.hasLength(message)) {
-            message = HttpStatus.resolve(status).toString();
+            HttpStatus httpStatus = HttpStatus.resolve(status);
+            if (httpStatus != null) {
+                message = httpStatus.toString();
+            }
         }
         response.put("message", message);
 
