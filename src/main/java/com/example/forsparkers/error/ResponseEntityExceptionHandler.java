@@ -5,13 +5,16 @@ import com.example.forsparkers.error.exception.NotFoundException;
 import com.example.forsparkers.error.model.GeneralError;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 import javax.validation.ValidationException;
 
 @ControllerAdvice
-public class CustomizedResponseEntityExceptionHandler {
+public class ResponseEntityExceptionHandler {
 
     @ExceptionHandler(BadRequestException.class)
     public ResponseEntity<GeneralError> handleBadRequest(BadRequestException exception) {
@@ -25,9 +28,18 @@ public class CustomizedResponseEntityExceptionHandler {
         return new ResponseEntity<>(error, exception.getHttpStatus());
     }
 
-    @ExceptionHandler(ValidationException.class)
-    public ResponseEntity<GeneralError> handleValidationException(Exception exception) {
-        GeneralError error = new GeneralError(HttpStatus.BAD_REQUEST.value(), exception.getMessage());
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<GeneralError> handleValidationException(ConstraintViolationException exception) {
+        StringBuilder strBuilder = new StringBuilder();
+        for (ConstraintViolation<?> s : exception.getConstraintViolations()) {
+            if (StringUtils.hasLength(strBuilder)) {
+                strBuilder.append(", ");
+                strBuilder.append(s.getMessageTemplate());
+                continue;
+            }
+            strBuilder.append(s.getMessageTemplate());
+        }
+        GeneralError error = new GeneralError(HttpStatus.BAD_REQUEST.value(), strBuilder.toString());
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
