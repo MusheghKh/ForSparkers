@@ -8,7 +8,7 @@ You must have preinstalled [JDK](https://www.oracle.com/java/technologies/javase
 
 To run the app you must go to project folder and type in terminal
 ```shell
-./gradlew springapp-boot:run
+./gradlew bootRun
 ```
 And application will start on default tomcat port(8080).
 
