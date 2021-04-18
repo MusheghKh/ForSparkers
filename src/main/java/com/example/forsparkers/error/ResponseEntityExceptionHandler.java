@@ -3,6 +3,7 @@ package com.example.forsparkers.error;
 import com.example.forsparkers.error.exception.BadRequestException;
 import com.example.forsparkers.error.exception.NotFoundException;
 import com.example.forsparkers.error.model.GeneralError;
+import com.example.forsparkers.util.ErrorMessage;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
@@ -45,7 +46,7 @@ public class ResponseEntityExceptionHandler {
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ResponseEntity<GeneralError> handleMethodArgumentException(MethodArgumentTypeMismatchException exception) {
-        String detailsMessage = "The type of '" + exception.getName() + "' must be " + exception.getRequiredType().getName();
+        String detailsMessage = String.format(ErrorMessage.INVALID_ARGUMENT_UNFORMATTED, exception.getName(), exception.getRequiredType().getName());
         GeneralError error = new GeneralError(HttpStatus.BAD_REQUEST.value(), detailsMessage);
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }

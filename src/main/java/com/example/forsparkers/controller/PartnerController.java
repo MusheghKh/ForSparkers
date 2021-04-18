@@ -2,6 +2,7 @@ package com.example.forsparkers.controller;
 
 import com.example.forsparkers.model.dto.PartnerDTO;
 import com.example.forsparkers.service.PartnerService;
+import com.example.forsparkers.util.ErrorMessage;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -24,9 +25,9 @@ public class PartnerController {
     @GetMapping
     public List<PartnerDTO> getAllPartners(
             @RequestParam(value = "from", required = false, defaultValue = "0")
-            @Min(value = 0, message = "'from' must be greater or equal to 0") int from,
+            @Min(value = 0, message = ErrorMessage.FROM_MIN) int from,
             @RequestParam(value = "size", required = false, defaultValue = "10")
-            @Min(value = 1, message = "'size' must be greater or equal to 1") int size
+            @Min(value = 1, message = ErrorMessage.SIZE_MIN) int size
     ) {
         return partnerService.getPartners(from, size);
     }

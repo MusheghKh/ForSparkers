@@ -29,7 +29,7 @@ public class AppRunner {
 
     private void seedPartnerTable() {
         List<Partner> list = new ArrayList<>();
-        for (int i = 0; i < 15; i++) {
+        for (int i = 0; i < 25; i++) {
             Partner partner = new Partner();
             partner.setCompanyName("Some company name " + i);
             partner.setRef("Some ref " + i);

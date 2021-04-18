@@ -73,6 +73,21 @@ public class PartnerControllerTest {
     }
 
     @Test
+    public void testGetPartnersSecondPage() throws Exception {
+        MvcResult mvcResult = mockMvc.perform(get(getBaseUrl() + "?from=1&size=7"))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        List<PartnerDTO> response = OBJECT_MAPPER.readValue(
+                mvcResult.getResponse().getContentAsString(),
+                new TypeReference<>() {
+                }
+        );
+
+        assertThat(response.size() == 7).isTrue();
+    }
+
+    @Test
     public void testGetPartnersQueryString() throws Exception {
         mockMvc.perform(get(getBaseUrl() + "?from=asd&size=asd"))
                 .andExpect(status().isBadRequest());
